@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface MainService {
 
     @GET("offers")
-    fun getOffers(): Response<OfferBaseResponse>
+    suspend fun getOffers(): Response<OfferBaseResponse>
 }

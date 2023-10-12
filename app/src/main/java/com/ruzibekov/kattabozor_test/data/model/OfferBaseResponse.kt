@@ -1,5 +1,7 @@
 package com.ruzibekov.kattabozor_test.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class OfferBaseResponse(
-    val offers: List<OfferResponse>
+    @SerializedName("offers") val offers: List<OfferResponse>
 )
