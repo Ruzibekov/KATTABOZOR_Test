@@ -20,14 +20,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.ruzibekov.kattabozor_test.data.model.OfferResponse
+import com.ruzibekov.kattabozor_test.ui.screens.main._components.MainListIsEmptyView
 import com.ruzibekov.kattabozor_test.ui.screens.main._components.MainTopBarView
+import com.ruzibekov.kattabozor_test.ui.screens.main.listeners.MainListeners
 import com.ruzibekov.kattabozor_test.ui.screens.main.state.MainState
 
 object MainContentVIew {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun Default(state: MainState) {
+    fun Default(state: MainState, listeners: MainListeners) {
 
         Scaffold(
             topBar = {
@@ -47,6 +49,9 @@ object MainContentVIew {
                     Item(data)
                 }
             }
+
+            if(state.offers.isEmpty())
+                MainListIsEmptyView.Defaulta(listeners)
         }
     }
 

@@ -8,13 +8,14 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ruzibekov.kattabozor_test.ui.screens.main._components.LoadingView
 import com.ruzibekov.kattabozor_test.ui.screens.main._content.MainContentVIew
+import com.ruzibekov.kattabozor_test.ui.screens.main.listeners.MainListeners
 import com.ruzibekov.kattabozor_test.ui.theme.KATTABOZOR_TestTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), MainListeners {
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -22,7 +23,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             KATTABOZOR_TestTheme {
-                MainContentVIew.Default(viewModel.state)
+
+                MainContentVIew.Default(viewModel.state, this)
 
                 if (viewModel.state.isLoading.value)
                     LoadingView.Default()
@@ -40,6 +42,10 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             }
             .launchIn(lifecycleScope)
+    }
+
+    override fun loadData() {
+        viewModel.fetch()
     }
 
 }
